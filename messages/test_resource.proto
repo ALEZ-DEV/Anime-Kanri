@@ -1,0 +1,12 @@
+syntax = "proto3";
+package test_resource;
+
+message ReadRequest {
+    repeated int32 input_number = 1;
+    string input_string = 2;
+}
+
+message ReadResponse {
+    repeated int32 output_number = 1;
+    string output_string = 2;
+}

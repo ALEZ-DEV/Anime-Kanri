@@ -1,0 +1,6 @@
+syntax = "proto3";
+package increasing_number;
+
+message StateSignal {
+    int32 currentNumber =1;
+}

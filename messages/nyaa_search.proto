@@ -1,0 +1,25 @@
+syntax = "proto3";
+package nyaa_search;
+
+message ReadRequest {
+    string search_input = 1;
+    int64 page_input = 2;
+}
+
+message ReadResponse {
+    string search = 1;
+    int64 current_page = 2;
+    int64 page_max = 3;
+    repeated Torrent torrents = 4;
+}
+
+message Torrent {
+    string name = 1;
+    string torrent_file = 2;
+    string magnet_link = 3;
+    string size = 4;
+    int64 date = 5;
+    int64 seeders = 6;
+    int64 leechers = 7;
+    int64 approved = 8;   
+}
