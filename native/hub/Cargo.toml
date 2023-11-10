@@ -42,4 +42,4 @@ lazy_static = "1.4.0"
 tokio = { version = "1.28.2", features = ["sync", "macros"] }
 prost = "0.12.0"
 sample_crate = { path = "../sample_crate" }
-nyaa-rsearch = "0.1.2"
+nyaa-rsearch = "0.1.3"

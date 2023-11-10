@@ -1,15 +1,17 @@
+use std::error::Error;
 use crate::bridge::api::{RustOperation, RustRequest, RustResponse, RustSignal};
-use crate::bridge::send_rust_signal;
 use prost::Message;
 
-use nyaa_rsearch::{models::categories, search, SearchInput};
+use nyaa_rsearch::{models::categories, r#async as async_func, SearchInput};
+use crate::messages::nyaa_search::{ReadRequest, ReadResponse, Torrent};
 
 pub async fn handle_nyaa_search(rust_request: RustRequest) -> RustResponse {
-    use crate::messages::nyaa_search::{ReadRequest, ReadResponse, Torrent};
 
     match rust_request.operation {
         RustOperation::Create => RustResponse::default(),
         RustOperation::Read => {
+            crate::debug_print!("Getting torrents...");
+
             let message_byte = rust_request.message.unwrap();
             let request_message = ReadRequest::decode(message_byte.as_slice()).unwrap();
 
@@ -18,7 +20,18 @@ pub async fn handle_nyaa_search(rust_request: RustRequest) -> RustResponse {
                 request_message.page_input,
                 categories::Categories::Anime,
             ).unwrap();
-            let search_result = search(search_input).unwrap();
+            let search_result_r = async_func::search(search_input).await;
+
+            match &search_result_r {
+                Err(e) => {
+                    crate::debug_print!("{}", format!("Something goes wrong : {}", e.to_string()));
+                }
+                Ok(_) => {
+                    crate::debug_print!("Got torrents !");
+                }
+            }
+
+            let search_result = search_result_r.unwrap();
 
             let torrents = search_result.torrents.iter().map(|t| {
                 Torrent {
@@ -45,7 +58,6 @@ pub async fn handle_nyaa_search(rust_request: RustRequest) -> RustResponse {
                 message: Some(response_message.encode_to_vec()),
                 blob: None,
             }
-
         },
         RustOperation::Update => RustResponse::default(),
         RustOperation::Delete => RustResponse::default(),

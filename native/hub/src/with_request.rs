@@ -6,6 +6,7 @@ use crate::bridge::api::{RustRequestUnique, RustResponse, RustResponseUnique};
 use crate::messages;
 use crate::sample_functions;
 use crate::sample_functions::handle_test_resource;
+use crate::nyaa_function::handle_nyaa_search;
 
 pub async fn handle_request(request_unique: RustRequestUnique) -> RustResponseUnique {
     // Get the request data.
@@ -23,6 +24,7 @@ pub async fn handle_request(request_unique: RustRequestUnique) -> RustResponseUn
             sample_functions::handle_deeper_resource(rust_request).await
         }
         messages::test_resource::ID => handle_test_resource(rust_request).await,
+        messages::nyaa_search::ID => handle_nyaa_search(rust_request).await,
         _ => RustResponse::default(),
     };
 
