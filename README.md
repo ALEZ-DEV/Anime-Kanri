@@ -76,7 +76,7 @@ please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
 ### Project Based on these library
 
 - UI Part
-  - [Flutter](https://flutter.dev/)
+  - [Flutter 3.13.9](https://flutter.dev/)
 - Backend
   - [Rinf](https://github.com/cunarist/rinf)
 - Library used in app
