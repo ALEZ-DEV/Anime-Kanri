@@ -19,11 +19,11 @@ But if you use it and something don't work as expected, don't hesitate to make a
 
 ## Download
 
-You can download the latest version in the [release](https://github.com/ALEZ-DEV/Anime-Kanri/releases)
+You can download the latest version in the [release](https://github.com/ALEZ-DEV/Anime-Kanri/releases) section
 
 ## Compile and Run the project
 
-Start by clone this project with
+Start by cloning this project with
 
 ```bash
 git clone https://github.com/ALEZ-DEV/Anime-Kanri.git
