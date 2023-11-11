@@ -1,8 +1,35 @@
-# anime_kanri
+# Anime-Kanri
 
-A new Flutter project.
+<p align="center">
+    <img src="./docs/logo.svg" title="AnimeKanri" alt="AnimeKanri" width="450" height="390"/><br>
+</p>
 
-## Using Rust Inside Flutter
+<div align="center">
+    <h1>Anime Kanri</h1>
+</div>
+
+<p align="center">A anime library manager, tracker, downloader and viewer with intuitive UI design</p>
+
+## !!! Warning : This project is still in developement !!!
+
+This project is still in developement and a lot of features is missing or will be changed in the future
+and not stable, any new version can break the app, use it at your own risk
+
+But if you use it and something don't work as expected, don't hesitate to make an issue for it !
+
+## Download
+
+You can download the latest version in the [release](https://github.com/ALEZ-DEV/Anime-Kanri/releases)
+
+## Compile and Run the project
+
+Start by clone this project with
+
+```bash
+git clone https://github.com/ALEZ-DEV/Anime-Kanri.git
+```
+
+### Using Rust Inside Flutter
 
 This project leverages Flutter for GUI and Rust for the backend logic,
 utilizing the capabilities of the
@@ -46,3 +73,25 @@ flutter run
 For detailed instructions on writing Rust and Flutter together,
 please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
 
+### Project Based on these library
+
+- UI Part
+  - [Flutter](https://flutter.dev/)
+- Backend
+  - [Rinf](https://github.com/cunarist/rinf)
+- Library used in app
+  - [Nyaa-rsearch](https://github.com/ALEZ-DEV/Nyaa-rsearch)
+
+### TODO
+
+- [ ] Torrent Downloader
+  - [ ] Search section
+    - [X] can search Torrent from nyaa.si
+    - [ ] Torrent name parser
+    - [ ] some preview of the Torrent
+    - [ ] add configurable setting
+  - [ ] Download section
+    - [ ] can Download Torrent file
+    - [ ] sort downloaded file
+- [ ] Video Player
+  - [ ] ...
