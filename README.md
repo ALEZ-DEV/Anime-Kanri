@@ -10,9 +10,9 @@
 
 <p align="center">A anime library manager, tracker, downloader and viewer with intuitive UI design</p>
 
-## !!! Warning : This project is still in developement !!!
+## !!! Warning : This project is still in development !!!
 
-This project is still in developement and a lot of features is missing or will be changed in the future
+This project is still in development and a lot of features is missing or will be changed in the future
 and not stable, any new version can break the app, use it at your own risk
 
 But if you use it and something don't work as expected, don't hesitate to make an issue for it !
