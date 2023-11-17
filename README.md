@@ -93,5 +93,5 @@ please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
   - [ ] Download section
     - [ ] can Download Torrent file
     - [ ] sort downloaded file
-- [ ] Video Player
+- [ ] Video Player (mpv) 
   - [ ] ...
