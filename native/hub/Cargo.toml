@@ -43,3 +43,7 @@ tokio = { version = "1.28.2", features = ["sync", "macros"] }
 prost = "0.12.0"
 sample_crate = { path = "../sample_crate" }
 nyaa-rsearch = "0.1.3"
+librqbit = "2.2.2"
+once_cell = "1.18.0"
+anyhow = "1.0.75"
+size_format = "1.0.2"

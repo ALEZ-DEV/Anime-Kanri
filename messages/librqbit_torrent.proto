@@ -1,0 +1,10 @@
+syntax = "proto3";
+package librqbit_torrent;
+
+message TorrentAddInfo {
+    string magnet_link = 1;
+}
+
+message TorrentAddedInfo {
+    bool has_been_added = 1;
+}

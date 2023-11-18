@@ -7,6 +7,7 @@ use crate::messages;
 use crate::sample_functions;
 use crate::sample_functions::handle_test_resource;
 use crate::nyaa_function::handle_nyaa_search;
+use crate::librqbit_function::add_torrent;
 
 pub async fn handle_request(request_unique: RustRequestUnique) -> RustResponseUnique {
     // Get the request data.
@@ -25,6 +26,7 @@ pub async fn handle_request(request_unique: RustRequestUnique) -> RustResponseUn
         }
         messages::test_resource::ID => handle_test_resource(rust_request).await,
         messages::nyaa_search::ID => handle_nyaa_search(rust_request).await,
+        messages::librqbit_torrent::ID => add_torrent(rust_request).await,
         _ => RustResponse::default(),
     };
 
