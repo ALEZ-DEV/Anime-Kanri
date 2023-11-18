@@ -29,6 +29,10 @@ class _MainAppState extends State<MainApp> {
       theme: AnimeKanri.Theme.light,
       darkTheme: AnimeKanri.Theme.dark,
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Anime Kanri'),
+          centerTitle: true,
+        ),
         body: MultiBlocProvider(
           providers: [
             BlocProvider(
