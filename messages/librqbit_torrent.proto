@@ -8,3 +8,23 @@ message TorrentAddInfo {
 message TorrentAddedInfo {
     bool has_been_added = 1;
 }
+
+message CurrentTorrentDownloadInfo {
+    repeated TorrentState torrents_state = 1;
+}
+
+message TorrentState {
+    optional int64 id = 1;
+    optional double pourcent = 2;
+    optional string progress = 3;
+    optional string remaining = 4;
+    optional string total = 5;
+    optional double downspeed = 6;
+    optional int64 peers = 7;
+    TorrentStartState state = 8;
+}
+
+enum TorrentStartState {
+    Initializing = 0;
+    Running = 1;
+}

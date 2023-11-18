@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+
+import 'package:rinf/rinf.dart';
+import 'package:anime_kanri/messages/librqbit_torrent.pb.dart' as librqbit;
+
+class TorrentQueueScreen extends StatelessWidget {
+  const TorrentQueueScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Torrent queue'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: StreamBuilder<RustSignal>(
+          stream: rustBroadcaster.stream
+              .where((rustSignal) => rustSignal.resource == librqbit.ID),
+          builder: (context, snapshot) {
+            final rustSignal = snapshot.data;
+            if (rustSignal == null) {
+              return const Center(
+                child: Text('There is no download for now'),
+              );
+            } else {
+              final signal = librqbit.CurrentTorrentDownloadInfo.fromBuffer(
+                rustSignal.message!,
+              );
+
+              return ListView.builder(
+                itemCount: signal.torrentsState.length,
+                itemBuilder: (context, index) => TorrentQueueItem(
+                  torrentState: signal.torrentsState[index],
+                ),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class TorrentQueueItem extends StatelessWidget {
+  const TorrentQueueItem({required this.torrentState, super.key});
+
+  final librqbit.TorrentState torrentState;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 300,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            torrentState.id.toString(),
+          ),
+          LinearProgressIndicator(
+            value: torrentState.pourcent / 100,
+          ),
+          Text('${torrentState.downspeed} Mbps/s'),
+        ],
+      ),
+    );
+  }
+}

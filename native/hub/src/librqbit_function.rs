@@ -1,13 +1,13 @@
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use librqbit::session::{AddTorrentResponse, ManagedTorrentState, Session};
+use librqbit::session::{ManagedTorrentState, Session};
 use librqbit::spawn_utils::BlockingSpawner;
 use once_cell::sync::OnceCell;
 use crate::bridge::api::{RustOperation, RustRequest, RustResponse, RustSignal};
 use prost::Message;
 use size_format::SizeFormatterBinary as SF;
-use crate::messages::nyaa_search::ReadResponse;
-
+use crate::bridge::send_rust_signal;
+use crate::messages::librqbit_torrent::{CurrentTorrentDownloadInfo, TorrentStartState};
 
 static SESSION_INSTANCE: OnceCell<Arc<Session>> = OnceCell::new();
 
@@ -49,14 +49,31 @@ pub async fn add_torrent(rust_request: RustRequest) -> RustResponse {
 }
 
 pub async fn update_torrents_status() {
+    use crate::messages::librqbit_torrent::{TorrentState, ID, TorrentStartState, CurrentTorrentDownloadInfo};
+
     loop {
         crate::sleep(Duration::from_secs(1)).await;
 
+        let mut current_torrent_download_info = Arc::new(Mutex::new(CurrentTorrentDownloadInfo {
+            torrents_state: vec![],
+        }));
+
         SESSION_INSTANCE.get().unwrap().with_torrents(|torrents| {
             for (idx, torrent) in torrents.iter().enumerate() {
-                match &torrent.state {
+                let torrent_state = match &torrent.state {
                     ManagedTorrentState::Initializing => {
                         crate::debug_print!("{} initializing", idx);
+
+                        TorrentState {
+                            id: None,
+                            pourcent: None,
+                            progress: None,
+                            remaining: None,
+                            total: None,
+                            downspeed: None,
+                            peers: None,
+                            state: i32::from(TorrentStartState::Initializing),
+                        }
                     }
                     ManagedTorrentState::Running(handle) => {
                         let peer_stats = handle.torrent_state().peer_stats_snapshot();
@@ -84,9 +101,29 @@ pub async fn update_torrents_status() {
                             peer_stats.queued,
                             peer_stats.seen,
                         );
+
+                        TorrentState {
+                            id: Some(idx as i64),
+                            pourcent: Some(downloaded_pct),
+                            progress: Some(SF::new(progress).to_string()),
+                            remaining: Some(SF::new(stats.remaining_bytes).to_string()),
+                            total: Some(SF::new(total).to_string()),
+                            downspeed: Some(speed.download_mbps()),
+                            peers: Some(i64::from_be_bytes(peer_stats.live.to_be_bytes())),
+                            state: i32::from(TorrentStartState::Running),
+                        }
                     }
-                }
+                };
+                current_torrent_download_info.clone().lock().unwrap().torrents_state.push(torrent_state);
             }
+
+            let signal = RustSignal {
+                resource: ID,
+                message: Some(current_torrent_download_info.lock().unwrap().encode_to_vec()),
+                blob: None,
+            };
+
+            send_rust_signal(signal);
         })
     }
 }

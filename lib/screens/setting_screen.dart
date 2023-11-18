@@ -1,3 +1,4 @@
+import 'package:anime_kanri/screens/setting_screens/torrent_queue_screen.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -11,8 +12,19 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('There will be the settings'),
+    return Column(
+      children: [
+        TextButton.icon(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TorrentQueueScreen(),
+            ),
+          ),
+          icon: const Icon(Icons.download),
+          label: const Text('Torrent queue'),
+        ),
+      ],
     );
   }
 }
