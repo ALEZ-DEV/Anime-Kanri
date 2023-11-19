@@ -73,6 +73,7 @@ pub async fn update_torrents_status() {
                             downspeed: None,
                             peers: None,
                             state: i32::from(TorrentStartState::Initializing),
+                            name: None,
                         }
                     }
                     ManagedTorrentState::Running(handle) => {
@@ -111,6 +112,7 @@ pub async fn update_torrents_status() {
                             downspeed: Some(speed.download_mbps()),
                             peers: Some(i64::from_be_bytes(peer_stats.live.to_be_bytes())),
                             state: i32::from(TorrentStartState::Running),
+                            name: Some(handle.torrent_state().info().name.clone().unwrap().to_string()),
                         }
                     }
                 };

@@ -22,6 +22,7 @@ message TorrentState {
     optional double downspeed = 6;
     optional int64 peers = 7;
     TorrentStartState state = 8;
+    optional string name = 9;
 }
 
 enum TorrentStartState {
