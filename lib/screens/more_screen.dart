@@ -1,13 +1,13 @@
-import 'package:anime_kanri/screens/setting_screens/torrent_queue_screen.dart';
+import 'package:anime_kanri/screens/more_screens.dart/torrent_queue_screen.dart';
 import 'package:flutter/material.dart';
 
-class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+class MoreScreen extends StatelessWidget {
+  const MoreScreen({super.key});
 
   static NavigationRailDestination navigationDestination =
       const NavigationRailDestination(
-    icon: Icon(Icons.settings),
-    label: Text('Settings'),
+    icon: Icon(Icons.more_horiz),
+    label: Text('More'),
   );
 
   @override
