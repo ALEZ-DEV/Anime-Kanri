@@ -35,56 +35,59 @@ class TorrentItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  torrent.name,
-                  overflow: TextOverflow.clip,
-                ),
-                Text(
-                  'Seeders : ${torrent.seeders.toString()}',
-                  style: const TextStyle(
-                    color: Colors.green,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    torrent.name,
                   ),
-                ),
-                Text(
-                  'Leechers : ${torrent.leechers.toString()}',
-                  style: const TextStyle(
-                    color: Colors.red,
+                  Text(
+                    'Seeders : ${torrent.seeders.toString()}',
+                    style: const TextStyle(
+                      color: Colors.green,
+                    ),
                   ),
-                ),
-                Text(
-                  'Approved : ${torrent.approved.toString()}',
-                  style: const TextStyle(
-                    color: Colors.green,
+                  Text(
+                    'Leechers : ${torrent.leechers.toString()}',
+                    style: const TextStyle(
+                      color: Colors.red,
+                    ),
                   ),
-                ),
-              ],
+                  Text(
+                    'Approved : ${torrent.approved.toString()}',
+                    style: const TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Column(
-              children: [
-                TextButton(
-                  onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: torrent.magnetLink),
-                    );
-                  },
-                  child: const Text('Copy Magnetlink'),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: torrent.torrentFile),
-                    );
-                  },
-                  child: const Text('Copy Torrent link'),
-                ),
-                TextButton(
-                  onPressed: startTorrentDownload,
-                  child: const Text('Download Torrent'),
-                ),
-              ],
+            Flexible(
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(text: torrent.magnetLink),
+                      );
+                    },
+                    child: const Text('Copy Magnetlink'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(text: torrent.torrentFile),
+                      );
+                    },
+                    child: const Text('Copy Torrent link'),
+                  ),
+                  TextButton(
+                    onPressed: startTorrentDownload,
+                    child: const Text('Download Torrent'),
+                  ),
+                ],
+              ),
             )
           ],
         ),
