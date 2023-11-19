@@ -100,7 +100,7 @@ class TorrentQueueItem extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    'Progress : ${torrentState.pourcent.toStringAsFixed(1)}%',
+                    'Downloaded : ${torrentState.remaining}/${torrentState.total}',
                   ),
                 ),
               ],

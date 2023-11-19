@@ -12,7 +12,7 @@ class TorrentItem extends StatelessWidget {
 
   final nyaa_rsearch.Torrent torrent;
 
-  void startTorrentDownload() async {
+  void startTorrentDownload(BuildContext context) async {
     final requestMessage = librqbit_torrent.TorrentAddInfo(
       magnetLink: torrent.magnetLink,
     );
@@ -22,7 +22,25 @@ class TorrentItem extends StatelessWidget {
       message: requestMessage.writeToBuffer(),
     );
 
-    await requestToRust(rustRequest);
+    final rustResponse = await requestToRust(rustRequest);
+
+    final torrentAddedInfo = librqbit_torrent.TorrentAddedInfo.fromBuffer(
+      rustResponse.message!,
+    );
+
+    late final snackBar;
+
+    if (torrentAddedInfo.hasBeenAdded) {
+      snackBar = const SnackBar(
+        content: Text('The torrent download is starting...'),
+      );
+    } else {
+      snackBar = const SnackBar(
+        content: Text('Failed to start the torrent download'),
+      );
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -83,7 +101,7 @@ class TorrentItem extends StatelessWidget {
                     child: const Text('Copy Torrent link'),
                   ),
                   TextButton(
-                    onPressed: startTorrentDownload,
+                    onPressed: () => startTorrentDownload(context),
                     child: const Text('Download Torrent'),
                   ),
                 ],
