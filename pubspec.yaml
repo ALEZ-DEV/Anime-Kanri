@@ -14,6 +14,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   meta: ^1.9.1
   protobuf: ^3.1.0
+  provider: ^6.1.1
   rinf: ^4.15.2
 
 dev_dependencies:

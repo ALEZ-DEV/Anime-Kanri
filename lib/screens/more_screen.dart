@@ -1,4 +1,6 @@
+import 'package:anime_kanri/screens/more_screens.dart/settings_screen.dart';
 import 'package:anime_kanri/screens/more_screens.dart/torrent_queue_screen.dart';
+import 'package:anime_kanri/widget/simple_icon_button.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -14,63 +16,17 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        SettingButton(
+        SimpleIconButton(
           icon: Icons.download,
           label: 'Torrent queue',
           page: TorrentQueueScreen(),
         ),
+        SimpleIconButton(
+          icon: Icons.settings,
+          label: 'Settings',
+          page: SettingsScreen(),
+        ),
       ],
-    );
-  }
-}
-
-class SettingButton extends StatelessWidget {
-  const SettingButton({
-    required this.icon,
-    required this.label,
-    required this.page,
-    super.key,
-  });
-
-  final IconData icon;
-  final String label;
-  final Widget page;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => page,
-        ),
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        height: 75,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(
-                icon,
-                size: 35,
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
