@@ -7,7 +7,7 @@ use crate::bridge::api::{RustOperation, RustRequest, RustResponse, RustSignal};
 use prost::Message;
 use size_format::SizeFormatterBinary as SF;
 use crate::bridge::send_rust_signal;
-use crate::messages::librqbit_torrent::{CurrentTorrentDownloadInfo, TorrentStartState};
+use crate::messages::librqbit_torrent::{CurrentTorrentDownloadInfo, NewSessionInfo, TorrentStartState};
 
 static SESSION_INSTANCE: OnceCell<Arc<Session>> = OnceCell::new();
 
@@ -16,8 +16,8 @@ pub async fn load_session(directory_path: &str) -> anyhow::Result<()>{
     Ok(())
 }
 
-pub async fn add_torrent(rust_request: RustRequest) -> RustResponse {
-    use crate::messages::librqbit_torrent::{TorrentAddedInfo, TorrentAddInfo};
+pub async fn manage_torrent(rust_request: RustRequest) -> RustResponse {
+    use crate::messages::librqbit_torrent::{TorrentAddedInfo, TorrentAddInfo, NewSessionInfo};
 
     match rust_request.operation {
         RustOperation::Create => RustResponse::default(),
@@ -32,8 +32,11 @@ pub async fn add_torrent(rust_request: RustRequest) -> RustResponse {
                 Ok(_) => TorrentAddedInfo {
                     has_been_added: true,
                 },
-                Err(_) => TorrentAddedInfo {
-                    has_been_added: false,
+                Err(e) =>  {
+                    crate::debug_print!("Failed to add torrent : {}", e);
+                    TorrentAddedInfo {
+                        has_been_added: false,
+                    }
                 }
             };
 
@@ -43,7 +46,27 @@ pub async fn add_torrent(rust_request: RustRequest) -> RustResponse {
                 blob: None,
             }
         }
-        RustOperation::Update => RustResponse::default(),
+        RustOperation::Update => {
+            crate::debug_print!("Try to load the new session");
+
+            let message_byte = rust_request.message.unwrap();
+            let new_session_info = NewSessionInfo::decode(message_byte.as_slice()).unwrap();
+
+            let result = load_session(new_session_info.directory_path.as_str()).await;
+
+            match result {
+                Ok(_) => RustResponse {
+                    successful: true,
+                    message: None,
+                    blob: None,
+                },
+                Err(_) => RustResponse {
+                    successful: true,
+                    message: None,
+                    blob: None,
+                }
+            }
+        },
         RustOperation::Delete => RustResponse::default(),
     }
 }

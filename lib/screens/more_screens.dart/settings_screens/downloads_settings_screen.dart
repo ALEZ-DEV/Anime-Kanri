@@ -2,13 +2,33 @@ import 'package:anime_kanri/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:anime_kanri/messages/librqbit_torrent.pb.dart'
+    as librqbit_torrent;
+import 'package:rinf/rinf.dart';
+
 class DownloadsSettingsScreen extends StatelessWidget {
   const DownloadsSettingsScreen({super.key});
 
+  void onDownloadDirectoyPathChanged(String value, BuildContext context) async {
+    Provider.of<SettingsProvider>(context, listen: false).setDownloadDirectory =
+        value;
+
+    final requestMessage = librqbit_torrent.newSessionInfo(
+      directoryPath: value,
+    );
+    final rustRequest = RustRequest(
+      resource: librqbit_torrent.ID,
+      operation: RustOperation.Update,
+      message: requestMessage.writeToBuffer(),
+    );
+
+    final rustResponse = await requestToRust(rustRequest);
+
+    print('sucess ? : ${rustResponse.successful}');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<SettingsProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Downloads'),
@@ -17,9 +37,9 @@ class DownloadsSettingsScreen extends StatelessWidget {
       body: Column(
         children: [
           SettingsTextField(
-            initValue: provider.downloadDirectory,
-            onChanged: (value) => provider.setDownloadDirectory = value,
-          )
+            initValue: Provider.of<SettingsProvider>(context).downloadDirectory,
+            onChanged: (value) => onDownloadDirectoyPathChanged(value, context),
+          ),
         ],
       ),
     );

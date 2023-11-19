@@ -29,3 +29,7 @@ enum TorrentStartState {
     Initializing = 0;
     Running = 1;
 }
+
+message newSessionInfo {
+    string directory_path = 1;
+}
