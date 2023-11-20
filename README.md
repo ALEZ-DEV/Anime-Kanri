@@ -81,6 +81,7 @@ please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
   - [Rinf](https://github.com/cunarist/rinf)
 - Library used in app
   - [Nyaa-rsearch](https://github.com/ALEZ-DEV/Nyaa-rsearch)
+  - [Librqbit](https://github.com/ikatson/rqbit)
 
 ### TODO
 
@@ -91,7 +92,7 @@ please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
     - [ ] some preview of the Torrent
     - [ ] add configurable setting
   - [ ] Download section
-    - [ ] can Download Torrent file
+    - [X] can Download Torrent file
     - [ ] sort downloaded file
 - [ ] Video Player (mpv) 
   - [ ] ...
