@@ -1,14 +1,12 @@
 name: Anime-Kanri-Compilation
 
-on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+on: ['push']
+#    tags:
+#      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build-windows:
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v3
     - uses: flutter-actions/setup-flutter@v2
