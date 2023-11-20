@@ -4,8 +4,6 @@
 
 use crate::bridge::api::{RustRequestUnique, RustResponse, RustResponseUnique};
 use crate::messages;
-use crate::sample_functions;
-use crate::sample_functions::handle_test_resource;
 use crate::nyaa_function::handle_nyaa_search;
 use crate::librqbit_function::manage_torrent;
 
@@ -17,14 +15,6 @@ pub async fn handle_request(request_unique: RustRequestUnique) -> RustResponseUn
     // Run the function that corresponds to the address.
     let rust_resource = rust_request.resource;
     let rust_response = match rust_resource {
-        messages::counter_number::ID => sample_functions::handle_counter_number(rust_request).await,
-        messages::sample_folder::sample_resource::ID => {
-            sample_functions::handle_sample_resource(rust_request).await
-        }
-        messages::sample_folder::deeper_folder::deeper_resource::ID => {
-            sample_functions::handle_deeper_resource(rust_request).await
-        }
-        messages::test_resource::ID => handle_test_resource(rust_request).await,
         messages::nyaa_search::ID => handle_nyaa_search(rust_request).await,
         messages::librqbit_torrent::ID => manage_torrent(rust_request).await,
         _ => RustResponse::default(),

@@ -5,7 +5,6 @@ use crate::librqbit_function::update_torrents_status;
 
 mod bridge;
 mod messages;
-mod sample_functions;
 mod web_alias;
 mod with_request;
 mod nyaa_function;
