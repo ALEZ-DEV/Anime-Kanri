@@ -8,18 +8,19 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Settings'),
-          centerTitle: true,
-        ),
-        body: const Column(
-          children: [
-            SimpleIconButton(
-              icon: Icons.download,
-              label: 'Downloads',
-              page: DownloadsSettingsScreen(),
-            ),
-          ],
-        ));
+      appBar: AppBar(
+        title: const Text('Settings'),
+        centerTitle: true,
+      ),
+      body: const Column(
+        children: [
+          SimpleIconButton(
+            icon: Icons.download,
+            label: 'Downloads',
+            page: DownloadsSettingsScreen(),
+          ),
+        ],
+      ),
+    );
   }
 }
