@@ -8,11 +8,11 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: flutter-actions/setup-flutter@v2
-    - name: Build-Windows
-    - run: cargo install rinf
-    - run: vcpkg install protobuf protobuf:x64-windows
-    - run: flutter pub get
-    - run: rinf message
-    - run: flutter build windows --release
+      - uses: actions/checkout@v3
+      - uses: flutter-actions/setup-flutter@v2
+      - name: Build-Windows
+      - run: cargo install rinf
+      - run: vcpkg install protobuf protobuf:x64-windows
+      - run: flutter pub get
+      - run: rinf message
+      - run: flutter build windows --release
