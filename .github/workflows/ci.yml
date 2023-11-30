@@ -12,6 +12,7 @@ jobs:
         run: |
           vcpkg install protobuf protobuf:x64-windows
           cargo install rinf
+          flutter upgrade
       - name: Build-Windows
         run: |
           flutter pub get
