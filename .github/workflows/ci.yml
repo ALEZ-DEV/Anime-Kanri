@@ -10,7 +10,7 @@ jobs:
       - uses: flutter-actions/setup-flutter@v2
       - name: Setup-environment
         run:
-          vcpkg install protobuf protobuf:x64-windows
+          vcpkg install protobuf
           cargo install rinf
       - name: Build-Windows
         run: 
