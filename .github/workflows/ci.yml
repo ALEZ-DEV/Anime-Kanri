@@ -8,7 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: flutter-actions/setup-flutter@v2
-      - uses: crazy-max/ghaction-chocolatey@v3.0.0
       - name: Setup-environment
         run: |
           Import-Module "$env:ChocolateyInstall/helpers/chocolateyInstaller.psm1"
