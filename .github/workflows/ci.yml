@@ -32,6 +32,7 @@ jobs:
           yes | flutter doctor --android-licenses
           cargo install rinf
           flutter upgrade
+          protoc --version
       - name: Build-Linux
         run: |
           flutter pub get
