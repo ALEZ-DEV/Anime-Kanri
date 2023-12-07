@@ -94,5 +94,7 @@ please refer to Rinf's [documentation](https://rinf-docs.cunarist.com).
   - [ ] Download section
     - [X] can Download Torrent file
     - [ ] sort downloaded file
+- [ ] Give 13 CHF to M3gaprod
 - [ ] Video Player (mpv) 
   - [ ] ...
+  
