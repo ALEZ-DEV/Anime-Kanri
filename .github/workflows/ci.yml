@@ -11,10 +11,11 @@ jobs:
       - name: Setup-environment
         run: |
           Import-Module "$env:ChocolateyInstall/helpers/chocolateyInstaller.psm1"
-          vcpkg install protobuf protobuf:x64-windows
+          choco install protoc
           cargo install rinf
           flutter upgrade
           refreshenv
+          protoc --version
       - name: Build-Windows
         run: |
           flutter pub get
