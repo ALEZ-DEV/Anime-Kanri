@@ -15,9 +15,25 @@ jobs:
           cargo install rinf
           flutter upgrade
           refreshenv
-          protoc --version
       - name: Build-Windows
         run: |
           flutter pub get
           rinf message
           flutter build windows --release
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: flutter-actions/setup-flutter@v2
+      - name: Setup-environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+          cargo install rinf
+          flutter upgrade
+      - name: Build-Linux
+        run: |
+          flutter pub get
+          rinf message
+          flutter build linux --release
+          flutter build apk --release
