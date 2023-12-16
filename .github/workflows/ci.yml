@@ -36,10 +36,24 @@ jobs:
           yes | flutter doctor --android-licenses
           cargo install rinf
           flutter upgrade
-          protoc --version
       - name: Build-Linux
         run: |
           flutter pub get
           rinf message
           flutter build linux --release
           flutter build apk --release
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: flutter-actions/setup-flutter@v2
+      - name: Setup-environment
+        run: |
+          brew install protobuf
+          cargo install rinf
+          flutter upgrade
+      - name: Build-Macos
+        run: |
+          flutter pub get
+          rinf message
+          flutter build macos --release
