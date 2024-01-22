@@ -1,6 +1,6 @@
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use librqbit::{AddTorrent, ManagedTorrentState, Session};
+use librqbit::{AddTorrent, AddTorrentOptions, ManagedTorrentState, Session};
 use once_cell::sync::OnceCell;
 use prost::bytes::Buf;
 use crate::bridge::api::{RustOperation, RustRequest, RustResponse, RustSignal};
@@ -28,7 +28,12 @@ pub async fn manage_torrent(rust_request: RustRequest) -> RustResponse {
             let torrent_add_info = TorrentAddInfo::decode(message_byte.as_slice()).unwrap();
 
             let add_torrent_info = AddTorrent::from_url(torrent_add_info.magnet_link.as_str());
-            let add_result = SESSION_INSTANCE.get().clone().unwrap().add_torrent(add_torrent_info, None).await;
+
+            let mut add_torrent_option = AddTorrentOptions::default();
+            add_torrent_option.output_folder = Some(torrent_add_info.output_folder);
+            add_torrent_option.overwrite = true;
+
+            let add_result = SESSION_INSTANCE.get().clone().unwrap().add_torrent(add_torrent_info, Some(add_torrent_option)).await;
             let torrent_info = match add_result {
                 Ok(_) => TorrentAddedInfo {
                     has_been_added: true,

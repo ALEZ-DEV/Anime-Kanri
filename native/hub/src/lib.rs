@@ -15,7 +15,7 @@ mod librqbit_function;
 async fn main() {
     // This is `tokio::sync::mpsc::Reciver` that receives the requests from Dart.
     let mut request_receiver = bridge::get_request_receiver();
-    librqbit_function::load_session("C:\\Anime").await.expect("Failed to load session");
+    librqbit_function::load_session("/").await.expect("Failed to load session");
 
     // Repeat `crate::spawn` anywhere in your code
     crate::spawn(update_torrents_status());

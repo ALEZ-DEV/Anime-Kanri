@@ -3,6 +3,7 @@ package librqbit_torrent;
 
 message TorrentAddInfo {
     string magnet_link = 1;
+    string output_folder = 2;
 }
 
 message TorrentAddedInfo {
