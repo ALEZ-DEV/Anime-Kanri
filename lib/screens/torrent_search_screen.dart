@@ -58,6 +58,12 @@ class _TorrentSearchScreenState extends State<TorrentSearchScreen> {
                 final List<nyaa_rsearch.Torrent> torrents =
                     state.searchInfo.torrents;
 
+                if (torrents.isEmpty) {
+                  return const Center(
+                    child: Text('We found nothing'),
+                  );
+                }
+
                 return ListView.builder(
                   itemCount: torrents.length,
                   itemBuilder: (context, index) => TorrentItem(
