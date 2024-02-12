@@ -125,7 +125,7 @@ pub async fn update_torrents_status() {
                     remaining: Some("?".to_string()),
                     total: Some(SF::new(total).to_string()),
                     downspeed: Some(speed.clone()),
-                    peers: Some(i64::from_be_bytes(peer_stats.live.to_be_bytes())),
+                    peers: Some(peer_stats.live as i64),
                     state: i32::from(TorrentStartState::Running),
                     name: Some(torrent.info.info.name.clone().unwrap().to_string()),
                 };

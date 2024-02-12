@@ -46,7 +46,8 @@ librqbit = "5.4.1"
 once_cell = "1.18.0"
 anyhow = "1.0.75"
 size_format = "1.0.2"
+openssl = { version = "0.10.35", features = ["vendored"] }
 
 # To help debug nyaa-rsearcg crate
 # [dependencies.nyaa-rsearch]
-# path = "/path/to/projects/Nyaa-rsearch"
+# path = "/home/alez/Projects/Rust/Nyaa-rsearch"

@@ -11,7 +11,7 @@ import 'package:anime_kanri/widget/simple_text_field.dart';
 import 'package:anime_kanri/providers/settings_provider.dart';
 
 class StartTorrentDownloadDialog extends StatefulWidget {
-  StartTorrentDownloadDialog({
+  const StartTorrentDownloadDialog({
     required this.torrent,
     super.key,
   });
